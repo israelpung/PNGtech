@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>À propos | PNG TECH</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    .about-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .about-image-block {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 48px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .about-image-block::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(0,212,255,0.1), transparent);
+    }
+    .about-big-icon { font-size: 7rem; line-height: 1; margin-bottom: 16px; }
+    .about-image-block h3 { font-size: 1.3rem; margin-bottom: 8px; color: var(--white); }
+    .about-image-block p { color: var(--muted); font-size: 0.92rem; }
+
+    .mission-vision { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 60px; }
+    .mv-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px;
+      border-left: 3px solid var(--cyan);
+    }
+    .mv-card.vision { border-left-color: #0D6EFD; }
+    .mv-card h4 { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+    .mv-card h4 .icon { font-size: 1.4rem; }
+    .mv-card p { color: var(--muted); font-size: 0.93rem; line-height: 1.7; }
+
+    .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .val-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 20px; text-align: center;
+      transition: var(--transition);
+    }
+    .val-card:hover { transform: translateY(-6px); border-color: rgba(0,212,255,0.3); }
+    .val-icon { font-size: 2.5rem; margin-bottom: 14px; }
+    .val-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; color: var(--white); }
+    .val-card p { color: var(--muted); font-size: 0.84rem; }
+
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .team-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: var(--transition);
+    }
+    .team-card:hover { transform: translateY(-8px); border-color: rgba(0,212,255,0.3); box-shadow: var(--shadow-blue); }
+    .team-avatar {
+      height: 200px;
+      background: var(--gradient-blue);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; color: white;
+      position: relative; overflow: hidden;
+    }
+    .team-avatar::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+      background: linear-gradient(transparent, var(--bg-card));
+    }
+    .team-info { padding: 24px; }
+    .team-info h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+    .team-info .role {
+      display: inline-block;
+      background: var(--cyan-glow); border: 1px solid var(--border);
+      color: var(--cyan); font-size: 0.78rem; font-weight: 700;
+      font-family: var(--font-head);
+      padding: 3px 12px; border-radius: 50px;
+      margin-bottom: 12px;
+    }
+    .team-info p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px; }
+    .team-social { display: flex; gap: 8px; }
+    .team-social a {
+      width: 32px; height: 32px;
+      border: 1px solid var(--border); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.85rem;
+      transition: var(--transition);
+    }
+    .team-social a:hover { color: var(--cyan); border-color: var(--cyan); background: var(--cyan-glow); }
+
+    .stats-band {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 48px;
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 24px;
+    }
+
+    @media(max-width:900px) {
+      .about-intro { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: repeat(2,1fr); }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .stats-band { grid-template-columns: repeat(2,1fr); }
+      .mission-vision { grid-template-columns: 1fr; }
+    }
+    @media(max-width:580px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+      .stats-band { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="pngtech-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">⚡</div>PNG <span>TECH</span></a>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="about.html" class="active">À propos</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="projet.html">Projets</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="grid-overlay"></div>
+  <div class="container">
+    <div class="section-badge">Notre histoire</div>
+    <h1>À propos de <span class="text-cyan">PNG TECH</span></h1>
+    <p>Une vision africaine de la technologie au service du développement durable.</p>
+    <div class="breadcrumb-bar">
+      <a href="index.html">Accueil</a> <span>›</span> <span>À propos</span>
+    </div>
+  </div>
+</header>
+
+<!-- About Intro -->
+<section class="section">
+  <div class="container">
+    <div class="about-intro">
+      <div class="reveal">
+        <div class="section-badge">Qui sommes-nous</div>
+        <h2 class="section-title" style="text-align:left;">Pionniers de la <span>tech africaine</span></h2>
+        <div class="divider left" style="margin-bottom:24px;"></div>
+        <p style="color:var(--muted);margin-bottom:16px;line-height:1.8;">
+          <strong style="color:var(--white);">PNG TECH</strong> est une société technologique et énergétique fondée à Kinshasa, au cœur de la République Démocratique du Congo. Notre mission : transformer l'Afrique grâce à des solutions modernes, innovantes et durables.
+        </p>
+        <p style="color:var(--muted);margin-bottom:32px;line-height:1.8;">
+          Nous combinons expertise en technologies de l'information et compétences en génie électrique pour offrir une gamme complète de services couvrant l'énergie verte, la domotique, la cybersécurité et le développement numérique.
+        </p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="services.html" class="btn-primary-custom"><i class="bi bi-grid-fill"></i> Nos services</a>
+          <a href="contact.html" class="btn-outline-custom"><i class="bi bi-chat-dots"></i> Nous contacter</a>
+        </div>
+      </div>
+      <div class="about-image-block reveal">
+        <div class="about-big-icon">🌍</div>
+        <h3>Kinshasa, RDC</h3>
+        <p>Au cœur de l'Afrique Centrale, rayonnant sur tout le continent.</p>
+        <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap;">
+          <span class="tag cyan">🏆 Fondée 2020</span>
+          <span class="tag green">✅ ISO 9001</span>
+          <span class="tag orange">🌍 Présence régionale</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="section alt">
+  <div class="container">
+    <div class="stats-band reveal">
+      <div class="stat-item">
+        <div class="stat-num"><span class="count-up" data-target="120" data-suffix="+">0</span></div>
+        <div class="stat-label">Projets réalisés</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span class="count-up" data-target="98" data-suffix="%">0</span></div>
+        <div class="stat-label">Taux de satisfaction</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span class="count-up" data-target="15" data-suffix="+">0</span></div>
+        <div class="stat-label">Experts & Ingénieurs</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span class="count-up" data-target="5" data-suffix="+">0</span></div>
+        <div class="stat-label">Années d'expérience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mission / Vision -->
+<section class="section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:40px;">
+      <div class="section-badge">Notre ADN</div>
+      <h2 class="section-title">Mission & <span>Vision</span></h2>
+    </div>
+    <div class="mission-vision">
+      <div class="mv-card reveal">
+        <h4><span class="icon">🎯</span> Notre Mission</h4>
+        <p>Offrir des services intelligents, accessibles et durables dans le domaine des TIC et de l'électricité pour améliorer le quotidien des populations africaines. Nous croyons que la technologie est un levier puissant de développement humain.</p>
+      </div>
+      <div class="mv-card vision reveal" style="transition-delay:0.1s;">
+        <h4><span class="icon">🔭</span> Notre Vision</h4>
+        <p>Devenir le leader africain de l'intégration technologique au service du développement durable et de la sécurité énergétique. Nous visons un continent connecté, électrifié et souverain technologiquement d'ici 2030.</p>
+      </div>
+    </div>
+
+    <!-- Values -->
+    <div class="text-center" style="margin-bottom:36px;">
+      <h3 style="font-size:1.6rem;font-weight:800;">Nos <span class="text-cyan">Valeurs</span></h3>
+    </div>
+    <div class="values-grid">
+      <div class="val-card reveal">
+        <div class="val-icon">💡</div>
+        <h4>Innovation</h4>
+        <p>Nous cherchons constamment les meilleures solutions technologiques pour nos clients.</p>
+      </div>
+      <div class="val-card reveal" style="transition-delay:0.1s">
+        <div class="val-icon">🤝</div>
+        <h4>Intégrité</h4>
+        <p>Transparence, honnêteté et respect dans chaque relation client et partenaire.</p>
+      </div>
+      <div class="val-card reveal" style="transition-delay:0.2s">
+        <div class="val-icon">⚡</div>
+        <h4>Excellence</h4>
+        <p>Un standard élevé de qualité dans chaque installation, développement ou service.</p>
+      </div>
+      <div class="val-card reveal" style="transition-delay:0.3s">
+        <div class="val-icon">🌿</div>
+        <h4>Durabilité</h4>
+        <p>Des solutions respectueuses de l'environnement pour les générations futures.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team -->
+<section class="section alt">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:48px;">
+      <div class="section-badge">Les humains derrière PNG TECH</div>
+      <h2 class="section-title">Notre <span>Équipe</span></h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-avatar">👨‍💼</div>
+        <div class="team-info">
+          <h4>Israël Punga</h4>
+          <div class="role">Fondateur & PDG</div>
+          <p>Ingénieur en informatique et entrepreneur visionnaire, Israël dirige PNG TECH avec passion pour l'innovation technologique africaine.</p>
+          <div class="team-social">
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-twitter-x"></i></a>
+            <a href="mailto:israelpunga000@gmail.com"><i class="bi bi-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal" style="transition-delay:0.1s;">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#00C896,#0D6EFD);">👨‍💻</div>
+        <div class="team-info">
+          <h4>M. Kodjo</h4>
+          <div class="role">Directeur Technique (CTO)</div>
+          <p>Expert en architectures systèmes et réseaux intelligents, il supervise toutes les solutions techniques déployées par PNG TECH.</p>
+          <div class="team-social">
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-github"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal" style="transition-delay:0.2s;">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#FF6B35,#6A1B9A);">👩‍🔬</div>
+        <div class="team-info">
+          <h4>Mme Nadège</h4>
+          <div class="role">Responsable Développement</div>
+          <p>Spécialisée en développement commercial et partenariats stratégiques, elle pilote la croissance et l'expansion de PNG TECH.</p>
+          <div class="team-social">
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-twitter-x"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Partners -->
+<section class="section">
+  <div class="container text-center">
+    <div class="section-badge">Partenaires & Certifications</div>
+    <h2 class="section-title">Ils nous font <span>confiance</span></h2>
+    <p class="section-sub">PNG TECH collabore avec des organisations reconnues pour offrir les meilleures solutions.</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:32px;">
+      <div class="glass-card reveal" style="padding:24px 40px;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:8px;">🏛️</div>
+        <div style="color:var(--muted);font-size:0.88rem;font-weight:600;">Partenaires institutionnels</div>
+      </div>
+      <div class="glass-card reveal" style="padding:24px 40px;text-align:center;" >
+        <div style="font-size:2rem;margin-bottom:8px;">🌐</div>
+        <div style="color:var(--muted);font-size:0.88rem;font-weight:600;">Partenaires internationaux</div>
+      </div>
+      <div class="glass-card reveal" style="padding:24px 40px;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:8px;">🏆</div>
+        <div style="color:var(--muted);font-size:0.88rem;font-weight:600;">Certifications ISO</div>
+      </div>
+      <div class="glass-card reveal" style="padding:24px 40px;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:8px;">🤝</div>
+        <div style="color:var(--muted);font-size:0.88rem;font-weight:600;">Associations tech</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:48px;padding-bottom:50px;">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="display:inline-flex;margin-bottom:16px;"><div class="logo-icon">⚡</div>PNG <span>TECH</span></a>
+        <p>Fusion de la technologie et de l'énergie pour un monde intelligent.</p>
+        <div class="footer-social">
+          <a href="#"><i class="bi bi-facebook"></i></a><a href="#"><i class="bi bi-linkedin"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a><a href="#"><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-heading">Navigation</p>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li><li><a href="about.html">À propos</a></li>
+          <li><a href="services.html">Services</a></li><li><a href="projet.html">Projets</a></li>
+          <li><a href="blog.html">Blog</a></li><li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-heading">Services</p>
+        <ul class="footer-links">
+          <li><a href="services.html">Énergie Solaire</a></li><li><a href="services.html">Domotique</a></li>
+          <li><a href="services.html">Cybersécurité</a></li><li><a href="services.html">Dév. Web</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-heading">Contact</p>
+        <div class="footer-contact-item"><div class="icon"><i class="bi bi-geo-alt"></i></div><span>123 Av. Colonel Ebeya, Kinshasa</span></div>
+        <div class="footer-contact-item"><div class="icon"><i class="bi bi-envelope"></i></div><span>israelpunga000@gmail.com</span></div>
+        <div class="footer-contact-item"><div class="icon"><i class="bi bi-telephone"></i></div><span>+243 833 295 994</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 <a href="index.html">PNG TECH</a>. Tous droits réservés.</span>
+      <span>Conçu avec ❤️ pour l'Afrique</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/243833295994" class="whatsapp-float" target="_blank"><i class="bi bi-whatsapp"></i></a>
+<div class="back-top"><i class="bi bi-chevron-up"></i></div>
+<script src="script.js"></script>
+</body>
+  </html>
+  
